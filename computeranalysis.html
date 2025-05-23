@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Computer Forensics Report - Ghost Logoff</title>
+  <style>
+    body {
+      background-color: #0d1117;
+      color: #e6edf3;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .top-bar {
+      background-color: #1f2937;
+      padding: 16px 24px;
+      border-bottom: 2px solid #58a6ff;
+      color: #58a6ff;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .section {
+      margin-top: 90px;
+    }
+
+    .section h2 {
+      color: #58a6ff;
+      font-size: 20px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 6px;
+    }
+
+       .fullscreen-warning {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #ffcc00;
+        color: #000;
+        text-align: center;
+        padding: 10px;
+        font-size: 16px;
+        z-index: 999;
+        display: none;
+        }
+
+    .section p, .section ul {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+               .top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #1f2937;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  color: #58a6ff;
+  font-size: 20px;
+  z-index: 1000;
+  border-bottom: 2px solid #58a6ff;
+}
+
+.top-bar .title {
+  font-weight: bold;
+}
+
+.top-bar .nav-links {
+  display: flex;
+  gap: 12px;
+    padding-right: 40px; /* Increased from 20px to 40px */
+
+}
+
+.back-button {
+  background-color: #58a6ff;
+  color: #0d1117;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  background-color: #1f75ff;
+}
+
+    .back-button2 {
+      display: inline-block;
+      margin-top: 20px;
+      background-color: #58a6ff;
+      color: #0d1117;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+
+    .back-button2:hover {
+      background-color: #1f75ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar"></div>
+    <!-- Top Bar -->
+  <div class="top-bar">
+  <div class="title">Computer Forensics Analysis - Ghost Logoff</div>
+  <div class="nav-links">
+    <button class="back-button" onclick="loadPage('suspectlineup.html')">🧍 Suspect Lineup</button>
+    <button class="back-button" onclick="loadPage('evidence.html')">← Back to Lab</button>
+  </div>
+  </div>
+
+     <!-- Fullscreen Warning -->
+  <div id="fullscreen-warning" class="fullscreen-warning">
+    For the best experience, press <strong>F11</strong> to enter fullscreen mode.
+  </div>
+
+  <div class="section">
+    <h2>Recovery Summary</h2>
+    <p>Marcus's laptop had been intentionally wiped. However, forensic recovery tools were able to extract remnants of his recent activity, including personal notes and fragments of logs tied to his investigative work.</p>
+  </div>
+
+  <div class="section">
+    <h2>Key Recovered Data</h2>
+    <ul>
+      <li><strong>Text fragment:</strong> A recovered note draft that reads, "Ask Tess about the admin login…"</li>
+      <li><strong>File reference:</strong> A deleted file pointer to "password_exposures.csv" dated the day of the incident.</li>
+      <li><strong>Notebook backup:</strong> Cached version of a list matching the physical notebook found in Marcus’s locker — includes names flagged for reused passwords.</li>
+      <li><strong>Auto-log script:</strong> Partial code for a script that records login metadata, suggesting Marcus was actively tracking unauthorized access.</li>
+      <li><strong>Shutdown timestamp:</strong> The machine was powered down at 6:48 PM.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Conclusion</h2>
+    <p>The recovered data confirms Marcus was working on documenting login misuse involving elevated credentials. His last activity strongly implicates Tess Monroe as the person he was preparing to confront, reinforcing the narrative pieced together from physical evidence and witness reports.</p>
+  </div>
+
+      <button class="back-button2" onclick="loadPage('evidence.html')">← Back to Crime Scene</button>
+</body>
+</html>

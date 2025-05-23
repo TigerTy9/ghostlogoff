@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Clothing Lineup - Ghost Logoff</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d1117;
+      color: #e6edf3;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #1f2937;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  color: #58a6ff;
+  font-size: 20px;
+  z-index: 1000;
+  border-bottom: 2px solid #58a6ff;
+}
+
+.top-bar .title {
+  font-weight: bold;
+}
+
+.top-bar .nav-links {
+  display: flex;
+  gap: 12px;
+    padding-right: 40px; /* Increased from 20px to 40px */
+
+}
+
+.back-button {
+  background-color: #58a6ff;
+  color: #0d1117;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  background-color: #1f75ff;
+}
+
+
+    .container {
+      max-width: 1000px;
+      margin: 100px auto 40px;
+      padding: 0 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      margin-top: -15px;
+    }
+
+    .lineup-image {
+      position: relative;
+      display: inline-block;
+    }
+
+    .lineup-image img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .click-zone {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    /* 4 Equal columns across the image */
+    .zone-1 { left: 0%; width: 25%; }
+    .zone-2 { left: 25%; width: 25%; }
+    .zone-3 { left: 50%; width: 25%; }
+    .zone-4 { left: 75%; width: 25%; }
+
+    .note {
+      margin-top: 12px;
+      font-style: italic;
+      color: #ccc;
+    }
+
+    .fullscreen-warning {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background-color: #ffcc00;
+      color: #000;
+      text-align: center;
+      padding: 10px;
+      font-size: 16px;
+      z-index: 999;
+      display: none;
+    }
+
+    /* Modal styles */
+    /* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 90%;
+  width: 400px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.8);
+}
+
+/* Center the image and scale it down */
+.modal-content {
+  width: 100%;
+  height: auto;
+  border: 3px solid #58a6ff;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #ff4444;
+}
+
+.match-btn:hover {
+  background-color: #1f75ff;
+}
+
+.matched-text {
+  color: #00ff88;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.nomatch-text {
+  color: #ff4444;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+.match-button-wrapper {
+  text-align: center;
+  margin-top: 15px;
+}
+
+#select-match-btn {
+  background-color: #58a6ff;
+  color: #0d1117;
+  border: none;
+  padding: 12px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#select-match-btn:hover {
+  background-color: #1f75ff;
+  transform: scale(1.03);
+}
+
+#select-possible-match-btn {
+  background-color: #58a6ff;
+  color: #0d1117;
+  border: none;
+  padding: 12px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#select-possible-match-btn:hover {
+  background-color: #1f75ff;
+  transform: scale(1.03);
+}
+
+#clear-matches-btn {
+  background-color: #ff4444;
+  color: #ffffff;
+  border: none;
+  padding: 12px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#clear-matches-btn:hover {
+  background-color: #cc0000;
+  transform: scale(1.03);
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+  <div class="title">CLOTHING LINEUP – Case File: Ghost Logoff</div>
+  <div class="nav-links">
+    <button class="back-button" onclick="loadPage('suspectlineup.html')">🧍 Suspect Lineup</button>
+    <button class="back-button" onclick="loadPage('fibers.html')">← Back to Fibers</button>
+  </div>
+</div>
+  <!-- Fullscreen Warning -->
+  <div id="fullscreen-warning" class="fullscreen-warning">
+    For the best experience, press <strong>F11</strong> to enter fullscreen mode.
+  </div>
+
+  <div class="container">
+    <h1>Suspect Clothing Lineup</h1>
+    <div class="lineup-image">
+  <img src="images/clothinglineup.png" alt="Lineup of suspect clothing">
+  <!-- Clickable Zones -->
+  <div class="click-zone zone-1" onclick="openModal(1)"></div>
+  <div class="click-zone zone-2" onclick="openModal(2)"></div>
+  <div class="click-zone zone-3" onclick="openModal(3)"></div>
+  <div class="click-zone zone-4" onclick="openModal(4)"></div>
+
+  <!-- Labels under each shirt -->
+  <div id="labels-container" style="display: flex; justify-content: space-between; margin-top: 10px;">
+    <div class="shirt-label" id="label-1" style="flex: 1; text-align: center;">
+      <div class="match-result" id="result-1"></div>
+    </div>
+    <div class="shirt-label" id="label-2" style="flex: 1; text-align: center;">
+      <div class="match-result" id="result-2"></div>
+    </div>
+    <div class="shirt-label" id="label-3" style="flex: 1; text-align: center;">
+      <div class="match-result" id="result-3"></div>
+    </div>
+    <div class="shirt-label" id="label-4" style="flex: 1; text-align: center;">
+      <div class="match-result" id="result-4"></div>
+    </div>
+  </div>
+</div>
+
+    <div class="note">Click on a shirt to enlarge view of its fabric thread.</div>
+    <div id="match-display" style="margin-top: 20px; font-size: 18px;"></div>
+
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img id="modal-img" class="modal-content" src="" alt="Enlarged shirt section">
+<div class="match-button-wrapper">
+  <button id="select-match-btn" onclick="selectMatch()">This is the Match</button>
+    <button id="select-possible-match-btn" onclick="selectPossibleMatch()">Possible Match</button>
+
+</div>
+
+  </div>
+<div style="text-align: center; margin-top: 30px;">
+  <button id="clear-matches-btn" onclick="clearAllMatches()">Clear All Matches</button>
+</div>
+
+ <!-- <script type="text/javascript" src="js/fingerprints.js"></script> -->
+<script type="text/javascript" src="js/clothing-lineup.js"></script>
+
+<!-- Load page properly if loaded directly -->
+  <script>
+    if (!window.loadPage) {
+      window.location.href = 'index.html?page=clothing-lineup.html';
+    }
+  </script>
+
+  
+</body>
+</html>
