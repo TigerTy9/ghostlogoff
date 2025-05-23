@@ -298,7 +298,16 @@
 console.log("Hashed input:", hashedInput);
 console.log("Expected:", correctHash);
 
-    location.reload();
+const allowed = localStorage.getItem("ghostlogoff_unlocked_solution");
+
+  if (allowed === "true") {
+    document.getElementById("page-title").textContent = "🕵️ Case Solution Revealed";
+    runTypewriter();
+  } else {
+    unlockSolution();
+  }
+
+   // location.reload();
   } else {
     document.getElementById("error-msg").classList.remove("hidden");
   }
