@@ -132,7 +132,12 @@ function loadPage(page) {
         };
 
         document.body.appendChild(script);
-      }
+      } else if (page.includes('overview.html')) {
+        const script = document.createElement('script');
+        script.src = 'js/overview.js';
+        
+        document.body.appendChild(script);
+      } 
 
       if (page.includes('suspectlineup.html')) {
         document.documentElement.style.overflow = 'auto'; // <html>
