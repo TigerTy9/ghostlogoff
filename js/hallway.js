@@ -34,7 +34,7 @@
         border-radius: 6px;
         cursor: pointer;
       ">View Notebook</button>
-      <img src="Images/Notebook.png" style="width: 100%; border-radius: 6px; margin-top: 38px; margin-bottom: 12px;">
+      <img src="images/Notebook.png" style="width: 100%; border-radius: 6px; margin-top: 38px; margin-bottom: 12px;">
     `;
   } else if (text.includes("Fiber")) {
     tooltip.innerHTML = `

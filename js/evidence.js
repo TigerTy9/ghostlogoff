@@ -30,7 +30,7 @@
         border-radius: 6px;
         cursor: pointer;
       ">View Prints</button>
-        <img src="Images/TrackPad.png" style="width: 100%; border-radius: 6px; margin-top: 68px; margin-bottom: 12px;">
+        <img src="images/TrackPad.png" style="width: 100%; border-radius: 6px; margin-top: 68px; margin-bottom: 12px;">
     `;
   } else if (text.includes("Fiber")) {
     tooltip.innerHTML = `
@@ -46,7 +46,7 @@
         border-radius: 6px;
         cursor: pointer;
       ">View Fibers</button>
-        <img src="Images/FiberOnCarpet.png" style="width: 100%; border-radius: 6px; margin-top: 68px; margin-bottom: 12px;">
+        <img src="images/FiberOnCarpet.png" style="width: 100%; border-radius: 6px; margin-top: 68px; margin-bottom: 12px;">
     `;
     } else if (text.includes("The laptop appears to have")) {
     tooltip.innerHTML = `
