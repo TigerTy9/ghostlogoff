@@ -184,7 +184,7 @@
   <audio id="ambient" src="Missing Persons - Jeremy Blake.mp3" preload="auto" loop></audio>
 
   <script>
-    const correctPassword = "teacher2025";
+    const correctPasswordHash = "77fc73f9d95e54b7626b66e50c1871ff947a6b40eb3c3cf6df1b9548d382bea0"; // Hash of email tythomasson@outlook.com for password
     const sentences = [
       "It wasn’t supposed to happen this way.",
       "Tess Monroe went to the lab that evening with one goal: erase the digital footprints that could destroy her future.",
@@ -201,6 +201,14 @@
       "She didn’t plan to kill him. But the evidence — the digital trail, the fibers, the deleted files — tells another story.",
       "And sometimes, intent doesn’t matter as much as consequence."
     ];
+
+    async function sha256(input) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(input);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
 
   const typewriterEl = document.getElementById("typewriter");
   const revealBox = document.getElementById("reveal-box");
@@ -280,15 +288,16 @@
     next();
   }
 
-  function unlockSolution() {
-    const input = prompt("Enter teacher password to unlock the solution:");
-    if (input === correctPassword) {
-      localStorage.setItem("ghostlogoff_unlocked_solution", "true");
-      location.reload();
-    } else {
-      document.getElementById("error-msg").classList.remove("hidden");
+    async function unlockSolution() {
+      const input = prompt("Enter teacher password to unlock the solution:");
+      const hashedInput = await sha256(input);
+      if (hashedInput === correctPasswordHash) {
+        localStorage.setItem("ghostlogoff_unlocked_solution", "true");
+        location.reload();
+      } else {
+        document.getElementById("error-msg").classList.remove("hidden");
+      }
     }
-  }
 
   const allowed = localStorage.getItem("ghostlogoff_unlocked_solution");
 
