@@ -73,6 +73,14 @@ function loadUserConclusion() {
   }
 }
 
+async function hashPassword(password) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
 
   function saveNote(key) {
     const value = document.getElementById(`textarea-${key}`).value;
@@ -98,17 +106,20 @@ function loadUserConclusion() {
     targetBox.querySelector('textarea').focus();
   }
 
- function promptPassword() {
-  const correctPassword = "teacher2025";
+ async function promptPassword() {
   const input = prompt("Enter teacher password to view the solution:");
+  if (!input) return;
 
-  if (input === correctPassword) {
+  const hashedInput = await hashPassword(input.trim());
+
+  if (hashedInput === correctHash) {
     localStorage.setItem("ghostlogoff_unlocked_solution", "true");
     window.location.href = "solution.html";
   } else {
     alert("❌ Incorrect password. Access denied.");
   }
 }
+
 
 
   async function exportNotesToPDF() {
