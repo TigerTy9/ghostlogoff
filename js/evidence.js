@@ -3,6 +3,12 @@
         loadPage('hallway.html'); // Adjust the path as needed
     }
 
+        function goToSuspects() {
+        // Replace with actual navigation logic
+        loadPage('suspects.html'); // Adjust the path as needed
+    }
+
+
   function showTooltip(event, text) {
   const tooltip = document.getElementById('information-box');
 

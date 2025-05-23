@@ -1,28 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Suspects</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Ghost Logoff – Suspects</title>
+  <style>
+    body {
+      background-color: #0d1117;
+      color: #e6edf3;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h1 {
+      color: #58a6ff;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .suspect {
+      margin-bottom: 24px;
+      padding: 18px;
+      border-left: 4px solid #58a6ff;
+      background-color: #161b22;
+      border-radius: 8px;
+      box-shadow: 0 0 12px #58a6ff33;
+    }
+
+    .suspect h2 {
+      margin: 0 0 8px;
+      color: #e6edf3;
+      font-size: 18px;
+    }
+
+    .suspect p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 30px;
+      color: #58a6ff;
+      text-decoration: none;
+      font-weight: bold;
+      border: 1px solid #58a6ff;
+      padding: 8px 16px;
+      border-radius: 6px;
+    }
+
+    .back-link:hover {
+      background-color: #58a6ff;
+      color: #0d1117;
+    }
+
+      .fullscreen-warning {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #ffcc00;
+        color: #000;
+        text-align: center;
+        padding: 10px;
+        font-size: 16px;
+        z-index: 999;
+        display: none;
+        }
+
+                      .top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #1f2937;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  color: #58a6ff;
+  font-size: 20px;
+  z-index: 1000;
+  border-bottom: 2px solid #58a6ff;
+}
+
+.top-bar .title {
+  font-weight: bold;
+}
+
+.top-bar .nav-links {
+  display: flex;
+  gap: 12px;
+    padding-right: 40px; /* Increased from 20px to 40px */
+
+}
+
+.back-button {
+  background-color: #58a6ff;
+  color: #0d1117;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  background-color: #1f75ff;
+}
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Suspects</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="crime.html">Crime Scene</a>
-      <a href="evidence.html">Evidence</a>
-      <a href="suspects.html">Suspects</a>
-    </nav>
-  </header>
-  <main>
-    <ul>
-      <li><strong>Eli Navarro:</strong> Rival coder; had motive but alibi places him in a different building.</li>
-      <li><strong>Mrs. Monroe:</strong> Her account was used illegally; activity occurred when she was offsite.</li>
-      <li><strong>Mr. Weller:</strong> Embarrassed by Marcus; fingerprint not at the scene.</li>
-      <li><strong>Tess Monroe:</strong> Student VP, daughter of Mrs. Monroe. Later added to suspect list after logs showed she used the admin login. Confessed to confrontation.</li>
-    </ul>
-    <p><a href="solution.html">Click here to solve the case (Instructor only)</a></p>
-  </main>
+
+    <!-- Top Bar -->
+  <div class="top-bar">
+  <div class="title">Handwriting Comparison - Ghost Logoff</div>
+  <div class="nav-links">
+    <button class="back-button" onclick="loadPage('suspectlineup.html')">🧍 Suspect Lineup</button>
+    <button class="back-button" onclick="loadPage('evidence.html')">← Back to Lab</button>
+  </div>
+  </div>
+
+         <!-- Fullscreen Warning -->
+    <div id="fullscreen-warning" class="fullscreen-warning">
+        For the best experience, press <strong>F11</strong> to enter fullscreen mode.
+    </div>
+
+  <h1>👤 Suspects (All Plausible)</h1>
+
+  <div class="suspect">
+    <h2>1. Eli Navarro</h2>
+    <p>
+      Competitive coder, placed second in the same cybersecurity competition. Was caught reusing passwords and almost disqualified. Owns a dark hoodie and often stays late.
+    </p>
+  </div>
+
+  <div class="suspect">
+    <h2>2. Mrs. Monroe (Tess's mother)</h2>
+    <p>
+      Initially suspected due to her admin-level account being involved in unauthorized access. However, activity logs showed the account was being used from school devices during hours Mrs. Monroe was confirmed to be elsewhere. This shifted suspicion to Tess, her daughter, based on proximity and device data.
+    </p>
+  </div>
+
+  <div class="suspect">
+    <h2>3. Mr. Weller</h2>
+    <p>
+      Computer Science teacher. Was embarrassed during a class when Marcus revealed that his password was “password123.” Had both motive and access, but no history of violence.
+    </p>
+  </div>
+
+  <div class="suspect">
+    <h2>4. Tess Monroe</h2>
+    <p>
+      Student council VP. One of the admin-level accounts accessed during the hack belonged to her mother, a district administrator. Tess had been using the login without permission and claims her mother’s ID card went missing days earlier.
+    </p>
+  </div>
+
+  <a class="back-link" href="index.html">⬅ Back to Main Menu</a>
+
 </body>
 </html>

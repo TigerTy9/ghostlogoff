@@ -86,6 +86,24 @@
     background-color: #1f75ff;
     }
 
+     .suspects-button {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #58a6ff;
+        color: #0d1117;
+        border: none;
+        padding: 12px 24px;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .suspects-button:hover {
+    background-color: #1f75ff;
+    }
 
     .background-img {
       width: 90%;
@@ -199,6 +217,8 @@
   <div id="fullscreen-warning" class="fullscreen-warning">
     For the best experience, press <strong>F11</strong> to enter fullscreen mode.
   </div>
+
+  <button class="suspects-button" onclick="goToSuspects()">View Suspects</button>
 
 <div id="license-popup" class="license-box hidden">
   <div class="license-photo"></div>
