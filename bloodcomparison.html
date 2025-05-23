@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blood Typing Results - Ghost Logoff</title>
+  <style>
+     body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d1117;
+      color: #e6edf3;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+       .top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #1f2937;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  color: #58a6ff;
+  font-size: 20px;
+  z-index: 1000;
+  border-bottom: 2px solid #58a6ff;
+}
+
+.top-bar .title {
+  font-weight: bold;
+}
+
+.top-bar .nav-links {
+  display: flex;
+  gap: 12px;
+    padding-right: 40px; /* Increased from 20px to 40px */
+
+}
+
+.back-button {
+  background-color: #58a6ff;
+  color: #0d1117;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  background-color: #1f75ff;
+}
+
+    .section {
+      margin-top: 30px;
+    }
+
+    .fullscreen-warning {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background-color: #ffcc00;
+      color: #000;
+      text-align: center;
+      padding: 10px;
+      font-size: 16px;
+      z-index: 999;
+      display: none;
+    }
+
+    .blood-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      margin-top: 100px;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .blood-card {
+      background-color: #1f2937;
+      border: 2px solid #58a6ff;
+      border-radius: 12px;
+      padding: 30px 40px;
+      font-size: 36px;
+      font-weight: bold;
+      color: #58a6ff;
+      width: 160px;
+    }
+
+    .blood-card-scene {
+      background-color: #1f2937;
+      border: 2px solid #ff5858;
+      border-radius: 12px;
+      padding: 30px 40px;
+      font-size: 36px;
+      font-weight: bold;
+      color: #ff5858;
+      width: 240px;
+    }
+
+    .blood-card h3 {
+      font-size: 18px;
+      margin-top: 14px;
+      color: #e6edf3;
+      font-weight: normal;
+    }
+
+    
+    .blood-card-scene h3 {
+      font-size: 18px;
+      margin-top: 14px;
+      color: #e6edf3;
+      font-weight: normal;
+    }
+
+    .match-result {
+      margin-top: 40px;
+      font-size: 22px;
+      text-align: center;
+      color: #00ff95;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Top Bar -->
+  <div class="top-bar">
+  <div class="title">Blood Comparison – Ghost Logoff</div>
+    <div class="nav-links">
+    <button class="back-button" onclick="loadPage('suspectlineup.html')">🧍 Suspect Lineup</button>
+    <button class="back-button" onclick="loadPage('evidence.html')">← Back to Lab</button>
+  </div>
+  </div>
+  </div>
+    <!-- Fullscreen Warning -->
+  <div id="fullscreen-warning" class="fullscreen-warning">
+    For the best experience, press <strong>F11</strong> to enter fullscreen mode.
+  </div>
+
+  <div class="section">
+    <h2>Blood Type Profiles</h2>
+    <div class="blood-grid">      
+      <div class="blood-card-scene">
+        A+
+        <h3>Sample Found at Scene</h3>
+      </div>
+    </div>
+    <div class="blood-grid">
+      <div class="blood-card">
+        A+
+        <h3>Marcus Ellery (Victim)</h3>
+      </div>
+      <div class="blood-card">
+        B+
+        <h3>Eli Navarro</h3>
+      </div>
+      <div class="blood-card">
+        AB+
+        <h3>Mrs. Monroe</h3>
+      </div>
+      <div class="blood-card">
+        A-
+        <h3>Mr. Weller</h3>
+      </div>
+      <div class="blood-card">
+        O-
+        <h3>Tess Monroe</h3>
+      </div>
+    </div>
+    <div class="match-result">Match confirmed: Scene sample matches the victim, Marcus Ellery (A+).</div>
+  </div>
+ <!-- Load page properly if loaded directly -->
+  <script>
+    if (!window.loadPage) {
+      window.location.href = 'index.html?page=bloodcomarison.html';
+    }
+  </script>
+</body>
+</html>
