@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fingerprint Evidence - Ghost Logoff</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d1117;
+      color: #e6edf3;
+      margin: 0;
+      padding: 0;
+    }
+
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #1f2937;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      color: #58a6ff;
+      font-size: 20px;
+      z-index: 1000;
+      border-bottom: 2px solid #58a6ff;
+    }
+
+    .fullscreen-warning {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background-color: #ffcc00;
+      color: #000;
+      text-align: center;
+      padding: 10px;
+      font-size: 16px;
+      z-index: 999;
+      display: none;
+    }
+
+    .container {
+      margin-top: 50px;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .container-suspects {
+      margin-top: -35px;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .print-card {
+      background-color: #1f2937;
+      border: 1px solid #ff5858;
+      border-radius: 10px;
+      padding: 16px;
+      width: 180px;
+      text-align: center;
+    }
+
+     .print-card-suspect {
+      background-color: #1f2937;
+      border: 1px solid #58a6ff;
+      border-radius: 10px;
+      padding: 16px;
+      width: 145px;
+      text-align: center;
+    }
+
+    .print-card img,
+    .print-card-suspect img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+
+    
+    .print-card h3 {
+      font-size: 16px;
+      color: #ff5858;
+      margin-top: 12px;
+    }
+
+    .print-card-suspect h3 {
+      font-size: 16px;
+      color: #58a6ff;
+      margin-top: 12px;
+    }
+
+   .back-button {
+        display: block;
+        margin: 20px 40px 20px auto; /* top, right (space from edge), bottom, auto (push right) */
+        background-color: #58a6ff;
+        color: #0d1117;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        width: fit-content;
+    }
+
+
+    .back-button:hover {
+      background-color: #1f75ff;
+    }
+       
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal img {
+        max-width: 90%;
+        max-height: 90%;
+        border: 3px solid #58a6ff;
+        border-radius: 12px;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 20px;
+        right: 40px;
+        font-size: 30px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .modal-caption {
+        color: #e6edf3;
+        font-size: 18px;
+        margin-top: 12px;
+        text-align: center;
+    }
+.mark-circle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid #58a6ff;
+  background-color: rgba(88, 166, 255, 0.3);
+  pointer-events: auto; /* allow clicking */
+  cursor: pointer;
+  z-index: 1002;
+}
+
+.mark-ridge {
+  border-color: #00ff00;
+  background-color: rgba(0, 255, 0, 0.15);
+}
+
+.mark-bifurcation {
+  border-color: #ff00ff;
+  background-color: rgba(255, 0, 255, 0.15);
+}
+
+#toolbar {
+  position: fixed;
+  top: auto; /* Set dynamically by JS */
+  left: 0;   /* Set dynamically by JS */
+  background: rgba(31, 41, 55, 0.95);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  padding: 10px 20px;
+  display: flex;
+  gap: 12px;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.6);
+  border-top: 1px solid #333;
+  border-radius: 8px;
+  pointer-events: auto;
+  touch-action: manipulation;
+  width: max-content;
+}
+
+
+
+#toolbar button {
+  background-color: #2d3748;
+  color: #58a6ff;
+  border: 1px solid #58a6ff;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#toolbar button.active-mode {
+    background-color: #58a6ff;
+    color: #0d1117;
+  }
+
+#toolbar button:hover {
+  background-color: #374151;
+}
+
+  .selected-mark {
+    outline: 2px dashed yellow;
+    outline-offset: 2px;
+  }
+  </style>
+  
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+
+
+<div id="imageModal" class="modal" onclick="closeModal()">
+  <span class="modal-close">&times;</span>
+  <div style="text-align: center;">
+    <img id="modalImage" src="" alt="Enlarged Fingerprint" />
+    <div id="modalCaption" class="modal-caption"></div>
+  </div>
+</div>
+<body>
+
+  <div class="top-bar">Fingerprint Comparison - Ghost Logoff
+      <a href="evidence.html" class="back-button">← Back to Crime Scene</a>
+  </div>
+
+    <!-- ✅ Toolbar placed here, before zoomable content -->
+  <div id="toolbar">
+    <button onclick="setMarkMode('ridge')">Mark Ridge</button>
+    <button onclick="setMarkMode('bifurcation')">Mark Bifurcation</button>
+    <button onclick="setMarkMode('remove')">Remove Mark</button>
+    <button onclick="clearMarks()">Clear All</button>
+
+  </div>
+
+    <!-- Fullscreen Warning -->
+  <div id="fullscreen-warning" class="fullscreen-warning">
+    For the best experience, press <strong>F11</strong> to enter fullscreen mode.
+  </div>
+
+
+
+   <div class="container">
+    <div class="print-card">
+      <img src="prints/unknown_fingerprint.png" alt="Unknown Fingerprint">
+      <h3>Unknown Partial Print</h3>
+    </div>
+  </div>
+
+  <div class="container-suspects">
+    <div class="print-card-suspect">
+      <img src="prints/marcus_fingerprint.png" alt="Marcus's Fingerprint">
+      <h3>Marcus Ellery (Victim)</h3>
+    </div>
+    <div class="print-card-suspect">
+      <img src="prints/suspect1_fingerprint.png" alt="Suspect 1 Fingerprint">
+      <h3>Suspect 1: <br>Eli Navarro </h3>
+    </div>
+    <div class="print-card-suspect">
+      <img src="prints/suspect2_fingerprint.png" alt="Suspect 2 Fingerprint">
+      <h3>Suspect 2: <br>Mrs. Monroe <br>(Tess's mother)</h3>
+    </div>
+    <div class="print-card-suspect">
+      <img src="prints/suspect3_fingerprint.png" alt="Suspect 3 Fingerprint">
+      <h3>Suspect 3: <br>Mr. Weller</h3>
+    </div>
+    <div class="print-card-suspect">
+      <img src="prints/suspect4_fingerprint.png" alt="Suspect 4 Fingerprint">
+      <h3>Suspect 4: <br>Tess Monroe</h3>
+    </div>
+  </div>
+
+<script>
+ if ('visualViewport' in window) {
+  const toolbar = document.getElementById('toolbar');
+  const toolbarHeight = toolbar.offsetHeight;
+
+  function lockToolbarToBottomCenter() {
+    const vv = window.visualViewport;
+
+    const top = vv.offsetTop + vv.height - toolbarHeight - 10; // 10px margin from bottom
+    const left = vv.offsetLeft + (vv.width / 2) - (toolbar.offsetWidth / 2);
+
+    toolbar.style.top = `${top}px`;
+    toolbar.style.left = `${left}px`;
+  }
+
+  visualViewport.addEventListener('scroll', lockToolbarToBottomCenter);
+  visualViewport.addEventListener('resize', lockToolbarToBottomCenter);
+  window.addEventListener('load', lockToolbarToBottomCenter);
+}
+
+</script>
+
+
+
+<script>
+  
+  function closeModal() {
+    document.getElementById('imageModal').style.display = 'none';
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+<!-- Fullscreen Check Script -->
+ <script>
+  let wasFullscreen = window.innerHeight === screen.height;
+
+  function checkFullscreen() {
+    const isFullscreen = window.innerHeight === screen.height;
+    const warning = document.getElementById('fullscreen-warning');
+
+    // Show or hide fullscreen warning
+    warning.style.display = isFullscreen ? 'none' : 'block';
+
+    // Enable or disable scroll
+    document.body.style.overflow = isFullscreen ? 'hidden' : 'auto';
+
+    // If user just entered fullscreen, scroll to top
+    if (isFullscreen && !wasFullscreen) {
+      window.scrollTo(0, 0);
+    }
+
+    wasFullscreen = isFullscreen;
+  }
+
+  window.addEventListener('load', checkFullscreen);
+  window.addEventListener('resize', checkFullscreen);
+</script>
+
+<script>
+  let currentMarkMode = null;
+  const savedMarks = JSON.parse(localStorage.getItem('fingerprintMarks') || '[]');
+  let markToRemove = null;
+
+ function setMarkMode(mode) {
+    currentMarkMode = mode;
+    document.querySelectorAll('#toolbar button').forEach(btn => {
+      btn.classList.remove('active-mode');
+    });
+    const modeButton = Array.from(document.querySelectorAll('#toolbar button'))
+      .find(btn => btn.innerText.toLowerCase().includes(mode));
+    if (modeButton) {
+      modeButton.classList.add('active-mode');
+    }
+  }
+
+  function disableMarkMode() {
+    currentMarkMode = null;
+    document.querySelectorAll('#toolbar button').forEach(btn => btn.classList.remove('active-mode'));
+  }
+
+  function clearMarks() {
+    if (!confirm('Are you sure you want to clear all markings?')) return;
+    document.querySelectorAll('.mark-circle').forEach(el => el.remove());
+    localStorage.removeItem('fingerprintMarks');
+  }
+let dragTarget = null;
+  let offsetX, offsetY;
+
+  document.addEventListener('mousedown', (e) => {
+    if (e.target.classList.contains('mark-circle')) {
+      dragTarget = e.target;
+      const rect = dragTarget.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+      e.preventDefault();
+    }
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (dragTarget) {
+      const parentRect = dragTarget.parentElement.getBoundingClientRect();
+      let x = e.clientX - parentRect.left - offsetX;
+      let y = e.clientY - parentRect.top - offsetY;
+            dragTarget.classList.add('selected-mark'); // Show highlight while dragging
+
+      dragTarget.style.left = `${x}px`;
+      dragTarget.style.top = `${y}px`;
+    }
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (dragTarget) {
+      saveMarksToStorage();
+    }
+    dragTarget = null;
+  });
+  function saveMarksToStorage() {
+    const allMarks = [];
+    document.querySelectorAll('.fingerprint-wrapper').forEach(wrapper => {
+      const marks = wrapper.querySelectorAll('.mark-circle');
+      marks.forEach(mark => {
+        allMarks.push({
+          wrapperIndex: Array.from(document.querySelectorAll('.fingerprint-wrapper')).indexOf(wrapper),
+          left: mark.style.left,
+          top: mark.style.top,
+          type: mark.classList.contains('mark-ridge') ? 'ridge' : 'bifurcation'
+        });
+      });
+    });
+    localStorage.setItem('fingerprintMarks', JSON.stringify(allMarks));
+  }
+
+  function restoreMarks() {
+    const wrappers = document.querySelectorAll('.fingerprint-wrapper');
+    savedMarks.forEach(({ wrapperIndex, left, top, type }) => {
+      const wrapper = wrappers[wrapperIndex];
+      if (wrapper) {
+        const mark = createMarkElement(left, top, type);
+        wrapper.appendChild(mark);
+      }
+    });
+  }
+
+  function createMarkElement(left, top, type) {
+    const mark = document.createElement('div');
+    mark.classList.add('mark-circle', type === 'ridge' ? 'mark-ridge' : 'mark-bifurcation');
+    mark.style.left = left;
+    mark.style.top = top;
+
+    mark.addEventListener('click', function (e) {
+      e.stopPropagation();
+
+      // 🔴 NEW: remove mode
+      if (currentMarkMode === 'remove') {
+        this.remove();
+        saveMarksToStorage();
+        return;
+      }
+
+      // selection toggle logic
+      if (markToRemove && markToRemove !== this) {
+        markToRemove.classList.remove('selected-mark');
+      }
+      if (this.classList.contains('selected-mark')) {
+        this.classList.remove('selected-mark');
+        markToRemove = null;
+      } else {
+        this.classList.add('selected-mark');
+        markToRemove = this;
+      }
+    });
+
+    mark.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.remove();
+      saveMarksToStorage();
+    });
+
+    return mark;
+  }
+
+  function removeSelectedMark() {
+    if (markToRemove) {
+      markToRemove.remove();
+      markToRemove = null;
+      saveMarksToStorage();
+    }
+  }
+
+  document.querySelectorAll('.print-card img, .print-card-suspect img').forEach(img => {
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'relative';
+    wrapper.style.display = 'inline-block';
+    wrapper.classList.add('fingerprint-wrapper');
+    img.parentNode.insertBefore(wrapper, img);
+    wrapper.appendChild(img);
+
+    wrapper.addEventListener('click', function (e) {
+      // Adding new mark only if mode is ridge/bifurcation
+      if (currentMarkMode !== 'ridge' && currentMarkMode !== 'bifurcation') return;
+      const rect = wrapper.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const mark = createMarkElement(`${x - 6}px`, `${y - 6}px`, currentMarkMode);
+      wrapper.appendChild(mark);
+      saveMarksToStorage();
+    });
+  });
+
+  window.addEventListener('load', restoreMarks);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Evidence Swipe</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .evidence-container {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      padding: 1rem;
+      scroll-snap-type: x mandatory;
+    }
+
+    .evidence-card {
+      background-color: #1f2937;
+      border: 1px solid #374151;
+      border-radius: 8px;
+      flex: 0 0 auto;
+      scroll-snap-align: center;
+      padding: 1.5rem;
+      width: 300px;
+      box-shadow: 0 0 10px rgba(88, 166, 255, 0.2);
+    }
+
+    .evidence-card h3 {
+      color: #58a6ff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Swipe to Examine the Evidence</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="crime.html">Crime Scene</a>
+      <a href="evidence.html">Evidence</a>
+      <a href="suspects.html">Suspects</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="evidence-container">
+      <div class="evidence-card">
+        <h3>Digital Evidence</h3>
+        <p>Marcus accessed server credentials for three accounts before the incident. Logs retrieved post-mortem confirm this activity.</p>
+      </div>
+      <div class="evidence-card">
+        <h3>Blood Pattern</h3>
+        <p>Blood spatter analysis suggests impact consistent with blunt trauma from falling or being pushed against a metal surface.</p>
+      </div>
+      <div class="evidence-card">
+        <h3>Trace Fibers</h3>
+        <p>Dark cotton fibers found at the scene do not match Marcus’s clothing. Hoodie likely belonged to someone else.</p>
+      </div>
+      <div class="evidence-card">
+        <h3>Fingerprint</h3>
+        <p>A partial fingerprint on Marcus's trackpad was lifted and did not match his. Forensic analysis underway.</p>
+      </div>
+      <div class="evidence-card">
+        <h3>Eyewitness</h3>
+        <p>Teacher spotted a figure in a dark hoodie leaving the lab at 7:50 PM. No visual ID due to lighting and distance.</p>
+      </div>
+      <div class="evidence-card">
+        <h3>Notebook</h3>
+        <p>Found in locker: list of names tied to reused/stolen passwords. Two listed individuals are current suspects.</p>
+      </div>
+       <div class="evidence-card">
+        <h3>Aduit Logs</h3>
+        <p>From Lab's Card ID Accessor.</p>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

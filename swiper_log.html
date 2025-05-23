@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ghost Logoff – Key Card Swiper Log</title>
+  <style>
+     body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d1117;
+      color: #e6edf3;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    
+          
+               .top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #1f2937;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  color: #58a6ff;
+  font-size: 20px;
+  z-index: 1000;
+  border-bottom: 2px solid #58a6ff;
+}
+
+.top-bar .title {
+  font-weight: bold;
+}
+
+.top-bar .nav-links {
+  display: flex;
+  gap: 12px;
+    padding-right: 40px; /* Increased from 20px to 40px */
+
+}
+
+.back-button {
+  background-color: #58a6ff;
+  color: #0d1117;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  background-color: #1f75ff;
+}
+
+    .log-container {
+      max-width: 800px;
+      margin: 40px auto;
+      margin-top: 80px;
+    }
+
+    .log-entry {
+      background-color: #161b22;
+      padding: 14px 18px;
+      margin-bottom: 12px;
+      border-left: 4px solid #58a6ff;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .log-entry:hover {
+      background-color: #1f2933;
+    }
+
+    .timestamp {
+      font-size: 14px;
+      color: #8b949e;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #0d1117;
+      color: #e6edf3;
+      padding: 24px;
+      border: 2px solid #58a6ff;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    .modal-close:hover {
+      color: #ff4444;
+    }
+
+    .case-summary {
+      font-style: italic;
+      margin-top: 10px;
+      color: #ccc;
+      text-align: center;
+    }
+
+    .fullscreen-warning {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background-color: #ffcc00;
+      color: #000;
+      text-align: center;
+      padding: 10px;
+      font-size: 16px;
+      z-index: 999;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+     <!-- Top Bar -->
+  <div class="top-bar">
+  <div class="title">GHOST LOGOFF - Swiper Log</div>
+  <div class="nav-links">
+    <button class="back-button" onclick="loadPage('suspectlineup.html')">🧍 Suspect Lineup</button>
+    <button class="back-button" onclick="loadPage('hallway.html')">← Back to Hallway</button>
+  </div>
+</div>
+
+
+    <!-- Fullscreen Warning -->
+  <div id="fullscreen-warning" class="fullscreen-warning">
+    For the best experience, press <strong>F11</strong> to enter fullscreen mode.
+  </div>
+
+  <div class="log-container">
+
+  <!-- Marcus arrives -->
+  <div class="log-entry" onclick="showTooltip(event, 'Marcus swiped into Lab 2 at 5:42 PM. This confirms he was alive and working in the lab before the incident.')">
+    <div><strong>ID: MARCUS_STUDENT</strong> — Lab 2 Access</div>
+    <div class="timestamp">5:42 PM — April 24, 2025</div>
+  </div>
+
+  <!-- Marcus arrives -->
+  <div class="log-entry" onclick="showTooltip(event, 'ELI swiped into Lab 2 at 6:02 PM.')">
+    <div><strong>ID: ELI_STUDENT</strong> — Lab 2 Access</div>
+    <div class="timestamp">6:02 PM — April 24, 2025</div>
+  </div>
+
+  <!-- Marcus arrives -->
+  <div class="log-entry" onclick="showTooltip(event, 'Marcus swiped into Lab 2 at 6:42 PM. This confirms he was alive and working in the lab before the incident.')">
+    <div><strong>ID: ELLERY_STUDENT</strong> — Lab 2 Access</div>
+    <div class="timestamp">6:30 PM — April 24, 2025</div>
+  </div>
+
+    <!-- Marcus again, active -->
+  <div class="log-entry" onclick="showTooltip(event, 'Marcus accessed the Server Room — likely to finalize his password audit script.')">
+    <div><strong>ID: MONROE_ADMIN</strong> — Server Room</div>
+    <div class="timestamp">7:01 PM — April 25, 2025</div>
+  </div>
+
+  <!-- Generic staff -->
+  <div class="log-entry" onclick="showTooltip(event, 'Night janitor swiped into Maintenance Room. His route passes the lab but didn’t enter it.')">
+    <div><strong>ID: SANTOS_JANITOR</strong> — Lab 2 Access</div>
+    <div class="timestamp">7:40 PM — April 24, 2025</div>
+  </div>
+
+  <!-- Suspicious admin access -->
+  <div class="log-entry" onclick="showTooltip(event, 'Admin credentials used to access the Deans Office — logs were deleted after this.')">
+    <div><strong>ID: MONROE_ADMIN</strong> — Deans Office</div>
+    <div class="timestamp">7:48 PM — April 25, 2025</div>
+  </div>
+</div>
+
+
+  <div class="case-summary">
+    Swiper logs show Tess’s ID was used to access secure areas during the exact window Marcus was attacked.
+  </div>
+
+  <!-- Modal Tooltip -->
+  <div id="tooltip-modal" class="modal">
+    <span class="modal-close" onclick="closeTooltip()">&times;</span>
+    <div id="tooltip-content"></div>
+  </div>
+
+ <script data-external="js/swiper_log.js"></script>
+
+ <!-- Load page properly if loaded directly -->
+  <script>
+    if (!window.loadPage) {
+      window.location.href = 'index.html?page=swiper_log.html';
+    }
+  </script>
+</body>
+</html>

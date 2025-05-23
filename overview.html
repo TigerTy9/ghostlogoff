@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ghost Logoff</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d1117;
+      color: #e6edf3;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #1f2937;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      color: #58a6ff;
+      font-size: 20px;
+      z-index: 1000;
+      border-bottom: 2px solid #58a6ff;
+    }
+
+    .fullscreen-warning {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background-color: #ffcc00;
+      color: #000;
+      text-align: center;
+      padding: 10px;
+      font-size: 16px;
+      z-index: 999;
+      display: none;
+    }
+
+    .container {
+      position: relative;
+      margin-top: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .background-img {
+      width: 90%;
+      max-width: 1200px;
+      position: relative;
+      background: url('Home.png') no-repeat center center;
+      background-size: contain;
+      height: 764px;
+      border: 2px solid #58a6ff;
+    }
+
+    .scenario-box {
+      position: absolute;
+      top: 14.6%;
+      left: 6.5%;
+      width: 21.5%;
+      height: 73.5%;
+      background-color: rgba(13, 17, 23, 0.85);
+      /* border: 2px solid #58a6ff; */
+      border-radius: 10px;
+      padding: 20px;
+      overflow-y: auto;
+      font-size: 13px;
+    }
+
+    .scenario-box h2 {
+      font-size: 20px;
+      color: #58a6ff;
+      margin-bottom: 16px;
+    }
+
+    .evidence-button {
+      position: absolute;
+      top: 20%;
+      right: 8%;
+      padding: 16px 32px;
+      background-color: #58a6ff;
+      border: none;
+      border-radius: 8px;
+      color: #0d1117;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .evidence-button:hover {
+      background-color: #1f6feb;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      .scenario-box {
+        width: 90%;
+        left: 5%;
+        height: auto;
+      }
+
+      .evidence-button {
+        top: auto;
+        bottom: 5%;
+        right: 50%;
+        transform: translateX(50%);
+      }
+
+      .background-img {
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    GHOST LOGOFF - CASE FILE DASHBOARD
+  </div>
+
+  <!-- Fullscreen Warning -->
+  <div id="fullscreen-warning" class="fullscreen-warning">
+    For the best experience, press <strong>F11</strong> to enter fullscreen mode.
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="background-img">
+<!-- Scenario Box -->
+<div class="scenario-box">
+  <h2>Scenario (The Setup)</h2>
+  <p><strong>Victim:</strong> Marcus Ellery, 17, senior at North Ridge High School</p>
+  <p><strong>Incident Type:</strong> Found dead in the school tech lab — suspected foul play</p>
+  <p><strong>Date/Time:</strong> Fri, Apr 25th, <b>8:24 PM</b></p>
+  <p><strong>Location:</strong> North Ridge High, Computer Science Lab 2</p>
+  <p><strong>Background:</strong> Marcus was known as a brilliant coder but also a bit of a loner. He’d recently developed a new password audit tool as part of a school cybersecurity contest. Rumors spread that the tool exposed poor admin practices and caught some students/staff reusing passwords.</p>
+  <p>He stayed late Friday night to finish a project. The next morning, a janitor found him dead from blunt force trauma beside his laptop. The computer was wiped clean. There were no signs of forced entry. The door locks require ID card swipes after 6 PM — logs show three different IDs accessed the building that evening.</p>
+</div>
+
+
+      <!-- Evidence Button -->
+      <button class="evidence-button" onclick="loadPage('evidence.html')">View Evidence</button>
+    </div>
+  </div>
+</body>
+</html>

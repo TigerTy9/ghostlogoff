@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Forensic Time of Death Estimate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      background-color: #0d1117;
+      color: #e6edf3;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 2rem;
+      font-size: smaller;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      margin-top: 50px;
+      background-color: #161b22;
+      border: 2px solid #58a6ff;
+      border-radius: 10px;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+    }
+
+    h1 {
+      color: #58a6ff;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      color: #9ecbff;
+    }
+
+    .formula {
+      background-color: #0d1117;
+      border-left: 4px solid #58a6ff;
+      padding: 10px 14px;
+      margin: 1rem 0;
+      font-family: monospace;
+      font-size: 1rem;
+      color: #d2d7de;
+    }
+
+    .highlight {
+      color: #58a6ff;
+      font-weight: bold;
+    }
+
+    .note {
+      font-size: 0.9rem;
+      color: #a1a1a1;
+      margin-top: 10px;
+      font-style: italic;
+    }
+
+              .top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #1f2937;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  color: #58a6ff;
+  font-size: 20px;
+  z-index: 1000;
+  border-bottom: 2px solid #58a6ff;
+}
+
+.top-bar .title {
+  font-weight: bold;
+}
+
+.top-bar .nav-links {
+  display: flex;
+  gap: 12px;
+    padding-right: 40px; /* Increased from 20px to 40px */
+
+}
+
+.back-button {
+  background-color: #58a6ff;
+  color: #0d1117;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  background-color: #1f75ff;
+}
+  </style>
+</head>
+<body>
+
+       <!-- Top Bar -->
+  <div class="top-bar">
+  <div class="title">Handwriting Comparison - Ghost Logoff</div>
+  <div class="nav-links">
+    <button class="back-button" onclick="loadPage('suspectlineup.html')">🧍 Suspect Lineup</button>
+    <button class="back-button" onclick="loadPage('evidence.html')">← Back to Lab</button>
+  </div>
+  </div>
+  
+ <div class="container">
+  <h1>🧬 Time of Death Estimate</h1>
+
+  <div class="section-title">Summary:</div>
+  <p>
+    The victim’s time of death is estimated between <span class="highlight">6:20–6:30 PM</span>, based on body temperature and early rigor mortis onset.
+  </p>
+
+  <div class="section-title">Evidence Used:</div>
+  <ul>
+    <li><strong>Rectal Body Temperature:</strong> 95.9°F</li>
+    <li><strong>Ambient Room Temperature:</strong> 72°F</li>
+    <li><strong>Rigor Mortis:</strong> Beginning in jaw and neck, no full-body stiffness yet</li>
+  </ul>
+
+  <div class="section-title">Glaister Equation:</div>
+  <div class="formula">
+    (98.4 − Body Temp) / 1.5 = Hours Since Death<br>
+    → (98.4 − 95.9) / 1.5 = <span class="highlight">1.67 hours (1 hrs 40 mins)</span>
+  </div>
+  <p>
+    Current time is 8:24 PM, then estimated time of death is:
+    <span class="highlight">~6:44 PM</span>
+  </p>
+
+  <div class="section-title">Rigor Mortis Analysis:</div>
+  <p>
+    Early rigor observed in facial muscles and jaw. Larger muscle groups remain relaxed. This supports a death window of <span class="highlight">1.5–2.5 hours ago</span>.
+  </p>
+
+  <div class="section-title">Cause of Death:</div>
+  <p>
+    Blunt force trauma to the head, consistent with impact on the edge of a desk. No signs of struggle or defensive wounds observed.
+  </p>
+
+  <p class="note">
+    Note: Estimates are based on standard postmortem progression. External conditions, physiology, or other factors may shift the timeline.
+  </p>
+</div>
+
+</body>
+</html>

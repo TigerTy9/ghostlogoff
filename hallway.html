@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evidence - Ghost Logoff</title>
+  <style>
+      body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d1117;
+      color: #e6edf3;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+          .top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #1f2937;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  color: #58a6ff;
+  font-size: 20px;
+  z-index: 1000;
+  border-bottom: 2px solid #58a6ff;
+}
+
+.top-bar .title {
+  font-weight: bold;
+}
+
+.top-bar .nav-links {
+  display: flex;
+  gap: 12px;
+    padding-right: 40px; /* Increased from 20px to 40px */
+
+}
+
+.back-button {
+  background-color: #58a6ff;
+  color: #0d1117;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  background-color: #1f75ff;
+}
+   
+     .container {
+      position: relative;
+      margin-top: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .lab-button {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #58a6ff;
+        color: #0d1117;
+        border: none;
+        padding: 12px 24px;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .lab-button:hover {
+    background-color: #1f75ff;
+    }
+
+
+    .background-img {
+      width: 90%;
+      max-width: 1200px;
+      position: relative;
+      background: url('Hallway.png') no-repeat center center;
+      background-size: contain;
+      height: 764px;
+      border: 2px solid #58a6ff;
+    }
+
+    .evidence-dot {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #58a6ff;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .evidence-dot:hover {
+      transform: scale(1.3);
+    }
+
+    .fullscreen-warning {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background-color: #ffcc00;
+      color: #000;
+      text-align: center;
+      padding: 10px;
+      font-size: 16px;
+      z-index: 999;
+      display: none;
+    }
+    .information-box {
+      position: absolute;
+      top: 14.6%;
+      left: 6.5%;
+      width: 18%;
+      height: 68.4%;
+      background-color: rgba(13, 17, 23, 0.85);
+      /* border: 2px solid #58a6ff; */
+      border-radius: 10px;
+      padding: 20px;
+      overflow-y: auto;
+      font-size: 16px;
+      display: block;
+    }
+
+    .information-box h2 {
+      font-size: 20px;
+      color: #58a6ff;
+      margin-bottom: 16px;
+    }
+
+    .selected-dot {
+      box-shadow: 0 0 12px 4px #58a6ff;
+      transform: scale(1.4);
+      z-index: 10;
+    }
+
+     .suspects-button {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #58a6ff;
+        color: #0d1117;
+        border: none;
+        padding: 12px 24px;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .suspects-button:hover {
+    background-color: #1f75ff;
+    }
+
+  </style>
+</head>
+<body>
+ 
+    <!-- Top Bar -->
+  <div class="top-bar">
+  <div class="title"> GHOST LOGOFF - (Hallway) Interactive Crime Scene</div>
+  <div class="nav-links">
+    <button class="back-button" onclick="loadPage('suspectlineup.html')">🧍 Suspect Lineup</button>
+    <button class="back-button" onclick="loadPage('evidence.html')">← Back to Lab</button>
+  </div>
+  </div>
+
+    <!-- Fullscreen Warning -->
+  <div id="fullscreen-warning" class="fullscreen-warning">
+    For the best experience, press <strong>F11</strong> to enter fullscreen mode.
+  </div>
+
+
+  <div class="container">
+    <div class="background-img">
+        <button class="lab-button" onclick="goToLab()">Go to Lab</button>
+
+        <!-- Evidence Dots -->
+        <div class="evidence-dot" style="top: 45%; left: 59%;" onclick="showTooltip(event, 'Digital Evidence: Marcus accessed login credentials for three accounts just before the incident.')"></div>
+        <div class="evidence-dot" style="top: 20%; left: 78%;" onclick="showTooltip(event, 'Eyewitness: Teacher saw someone in a hoodie leaving the lab at 6:15 PM.')"></div>
+        <div class="evidence-dot" style="top: 30%; left: 40%;" onclick="showTooltip(event, 'Notebook: Found in Marcus’s locker listing students caught reusing passwords.')"></div>
+        <!-- <div class="evidence-dot" style="top: 75%; left: 35%;" onclick="showTooltip(event, 'Grey Hoodie: Found in locker.')"></div> -->
+
+        <div id="information-box" class="information-box">
+
+        </div>
+          <button class="suspects-button" onclick="viewSuspects()">View Suspect Lineup</button>
+
+    </div>
+  </div>
+  
+    <script type="text/javascript" src="js/hallway.js"></script>
+
+<!-- Load page properly if loaded directly -->
+  <script>
+    if (!window.loadPage) {
+      window.location.href = 'index.html?page=hallway.html';
+    }
+  </script>
+</body>
+</html>

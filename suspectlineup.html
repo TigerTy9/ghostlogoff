@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ghost Logoff – Suspect Lineup</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d1117;
+      color: #e6edf3;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+
+    h1 {
+      color: #58a6ff;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .layout {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .lineup-wrapper {
+      position: relative;
+      max-width: 600px;
+      height: 570px;
+      margin-top: 100px;
+      width: 100%;
+    }
+
+    .lineup-image {
+      width: 100%;
+      border-radius: 10px;
+      border: 2px solid #30363d;
+    }
+
+    .click-zone {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 25%;
+      cursor: pointer;
+    }
+
+    .zone-1 { left: 0%; }
+    .zone-2 { left: 25%; }
+    .zone-3 { left: 50%; }
+    .zone-4 { left: 75%; }
+
+    .note-box {
+      background-color: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 16px;
+      width: 350px;
+      height: 570px;
+      display: none;
+      margin-top: 100px;
+    }
+
+    .note-box.active {
+      display: block;
+    }
+
+    .note-box h3 {
+      color: #58a6ff;
+      margin-top: 0;
+    }
+
+    .note-box textarea {
+      width: 95%;
+      height: 505px;
+      background-color: #0d1117;
+      color: #c9d1d9;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      padding: 8px;
+      font-family: monospace;
+      resize: none;
+    }
+
+    
+   .analysis-form textarea {
+        width: 95%;
+        padding: 10px;
+        font-size: 14px;
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #0d1117;
+        color: #c9d1d9;
+        border: 1px solid #58a6ff;
+        border-radius: 6px;
+        resize: vertical;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
+        transition: border 0.3s ease;
+    }
+
+    .analysis-form textarea:focus {
+        outline: none;
+        border-color: #ffb81f;
+        background-color: #161b22;
+    }
+
+
+    .note {
+      margin-top: 20px;
+      font-style: italic;
+      color: #8b949e;
+      text-align: center;
+    }
+    
+    .action-btn {
+  background-color: #58a6ff;
+  color: #0d1117;
+  border: none;
+  padding: 12px 20px;
+  margin: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.action-btn:hover {
+  background-color: #1f75ff;
+}
+
+#user-conclusion {
+  width: 95%;
+  padding: 12px;
+  font-size: 15px;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #0d1117;
+  color: #c9d1d9;
+  border: 2px solid #58a6ff;
+  border-radius: 8px;
+  resize: vertical;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  min-height: 120px;
+}
+
+#user-conclusion:focus {
+  outline: none;
+  border-color: #ffb81f;
+  background-color: #161b22;
+}
+
+#suspect-choice {
+  background-color: #0d1117;
+  color: #c9d1d9;
+  border: 1px solid #58a6ff;
+  border-radius: 6px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 15px;
+  padding: 10px;
+  width: 98%;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+  appearance: none;
+}
+
+#suspect-choice:focus {
+  outline: none;
+  border-color: #ffb81f;
+  background-color: #161b22;
+}
+
+#suspect-choice option {
+  background-color: #0d1117;
+  color: #c9d1d9;
+}
+
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #1f2937;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  color: #58a6ff;
+  font-size: 20px;
+  z-index: 1000;
+  border-bottom: 2px solid #58a6ff;
+}
+
+.top-bar .title {
+  font-weight: bold;
+}
+
+.top-bar .nav-links {
+  display: flex;
+  gap: 12px;
+    padding-right: 40px; /* Increased from 20px to 40px */
+
+}
+
+.back-button {
+  background-color: #58a6ff;
+  color: #0d1117;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  background-color: #1f75ff;
+}
+
+  </style>
+</head>
+<body>
+ <div class="top-bar">
+  <div class="title">Suspect Lineup – Case File: Ghost Logoff</div>
+  <div class="nav-links">
+        <button class="back-button" onclick="loadPage('suspectlineup.html')">🧍 Suspect Lineup</button>
+        <button class="back-button" onclick="loadPage('evidence.html')">← Back to Lab</button>
+</a>
+  </div>
+</div>
+
+  <div class="layout">
+    <!-- Image & Zones -->
+    <div class="lineup-wrapper">
+      <img src="images/suspects.png" alt="Suspect Lineup" class="lineup-image">
+      <div class="click-zone zone-1" onclick="focusNotes('eli')"></div>
+      <div class="click-zone zone-2" onclick="focusNotes('monroe')"></div>
+      <div class="click-zone zone-3" onclick="focusNotes('weller')"></div>
+      <div class="click-zone zone-4" onclick="focusNotes('tess')"></div>
+    </div>
+
+    <!-- Notes Box (One at a Time) -->
+    <div class="note-box" id="notes-eli">
+      <h3>Notes for Eli Navarro</h3>
+      <textarea id="textarea-eli" oninput="saveNote('eli')"></textarea>
+    </div>
+
+    <div class="note-box" id="notes-monroe">
+      <h3>Notes for Mrs. Monroe</h3>
+      <textarea id="textarea-monroe" oninput="saveNote('monroe')"></textarea>
+    </div>
+
+    <div class="note-box" id="notes-weller">
+      <h3>Notes for Mr. Weller</h3>
+      <textarea id="textarea-weller" oninput="saveNote('weller')"></textarea>
+    </div>
+
+    <div class="note-box" id="notes-tess">
+      <h3>Notes for Tess Monroe</h3>
+      <textarea id="textarea-tess" oninput="saveNote('tess')"></textarea>
+    </div>
+  </div>
+
+  <div class="note">Click a suspect in the lineup to view and edit notes. Your notes are auto-saved.</div>
+
+  <div style="margin: 40px auto; max-width: 800px;">
+  <h2 style="color:#58a6ff;">🧠 Case Reflection</h2>
+  <p style="color:#8b949e;">Answer the following questions. Your responses will be saved and exported with the case summary.</p>
+  <form id="analysis-form" class="analysis-form">
+    <div style="margin-bottom: 16px;">
+      <label>1. Which pieces of evidence were most helpful in narrowing down the suspects?</label><br>
+      <textarea id="q1" rows="4" oninput="saveAnswers()"></textarea>
+    </div>
+    <div style="margin-bottom: 16px;">
+      <label>2. How did fingerprint comparisons influence your conclusion?</label><br>
+      <textarea id="q2" rows="4" oninput="saveAnswers()"></textarea>
+    </div>
+    <div style="margin-bottom: 16px;">
+      <label>3. What do you think was Tess Monroe's motivation or reasoning?</label><br>
+      <textarea id="q3" rows="4" oninput="saveAnswers()"></textarea>
+    </div>
+    <div style="margin-bottom: 16px;">
+      <label>4. If you were the investigator, what other questions would you ask the suspects?</label><br>
+      <textarea id="q4" rows="4" oninput="saveAnswers()"></textarea>
+    </div>
+    <div style="margin-bottom: 16px;">
+      <label>5. What protocols could be put in place to prevent this situation in the future?</label><br>
+      <textarea id="q5" rows="4" oninput="saveAnswers()"></textarea>
+    </div>
+  </form>
+</div>
+
+<div style="margin: 40px auto; max-width: 800px;">
+  <h2 style="color:#58a6ff;">🕵️ Who do you think did it?</h2>
+  <p style="color:#8b949e;">Select the suspect you believe is responsible. This will be exported with your case summary.</p>
+  <select id="suspect-choice" class="analysis-form" onchange="saveSuspectChoice()">
+    <option value="">-- Select a suspect --</option>
+    <option value="Eli Navarro">Eli Navarro</option>
+    <option value="Mrs. Monroe">Mrs. Monroe</option>
+    <option value="Mr. Weller">Mr. Weller</option>
+    <option value="Tess Monroe">Tess Monroe</option>
+  </select>
+</div>
+
+<div style="margin: 40px auto; max-width: 800px;">
+  <h2 style="color:#58a6ff;">📌 Your Conclusion</h2>
+  <p style="color:#8b949e;">Summarize who you believe committed the breach and why. This will be exported in your case summary.</p>
+  <textarea id="user-conclusion" class="analysis-form" rows="20" oninput="saveUserConclusion()"></textarea>
+</div>
+
+
+
+  <div style="text-align: center; margin-top: 40px;">
+  <button class="action-btn" onclick="promptPassword()">🔐 View Solution</button>
+  <button class="action-btn" onclick="exportNotesToPDF()">📄 Export My Notes</button>
+  <button class="action-btn" onclick="exportFingerprintPDF()">🔍 Export Fingerprint Markup</button>
+  <button class="action-btn" onclick="exportCaseSummaryPDF()">📄 Export Case Summary</button>
+
+</div>
+
+<script data-external="js/suspectlineup.js"></script>
+
+ <!-- Load page properly if loaded directly -->
+  <script>
+    if (!window.loadPage) {
+      window.location.href = 'index.html?page=suspectlineup.html';
+    }
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,239 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Handwriting Comparison - Ghost Logoff</title>
+    <style>
+        body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #0d1117;
+        color: #e6edf3;
+        margin: 0;
+        padding: 0;
+        }
+
+               .top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #1f2937;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  color: #58a6ff;
+  font-size: 20px;
+  z-index: 1000;
+  border-bottom: 2px solid #58a6ff;
+}
+
+.top-bar .title {
+  font-weight: bold;
+}
+
+.top-bar .nav-links {
+  display: flex;
+  gap: 12px;
+    padding-right: 40px; /* Increased from 20px to 40px */
+
+}
+
+.back-button {
+  background-color: #58a6ff;
+  color: #0d1117;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  background-color: #1f75ff;
+}
+        .container {
+        margin-top: 60px;
+        padding: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 24px;
+        }
+
+        .handwriting-card {
+        background-color: #1f2937;
+        border: 1px solid #58a6ff;
+        border-radius: 10px;
+        padding: 16px;
+        width: 450px;
+        text-align: center;
+        position: relative;
+        }
+
+        .image-wrapper {
+        position: relative;
+        width: 100%;
+        }
+
+        .image-wrapper img {
+        width: 100%;
+        border-radius: 6px;
+        border: 1px solid #333;
+        display: block;
+        }
+
+        .image-wrapper canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        pointer-events: auto;
+        border-radius: 6px;
+        }
+
+        .handwriting-card h3 {
+        font-size: 16px;
+        color: #58a6ff;
+        margin-top: 12px;
+        }
+
+        .toolbar {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 12px;
+        justify-content: center;
+        }
+
+        .toolbar button {
+        background-color: #58a6ff;
+        color: #0d1117;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        }
+
+        .toolbar button.active {
+        background-color: #1f75ff;
+        }
+
+        .fullscreen-warning {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #ffcc00;
+        color: #000;
+        text-align: center;
+        padding: 10px;
+        font-size: 16px;
+        z-index: 999;
+        display: none;
+        }
+
+        .verdict-btn {
+    background-color: #2d333b;
+    color: #fff;
+    border: 2px solid #444;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    }
+
+    .verdict-btn.selected {
+    font-weight: bold;
+    border-color: #58a6ff;
+    box-shadow: 0 0 10px #58a6ff88;
+    text-transform: uppercase;
+    }
+
+    #match-btn.selected {
+    background-color: #238636;
+    }
+
+    #not-match-btn.selected {
+    background-color: #da3633;
+    }
+
+    </style>
+    </head>
+
+    <body>
+    <!-- Top Bar -->
+  <div class="top-bar">
+  <div class="title">Handwriting Comparison - Ghost Logoff</div>
+  <div class="nav-links">
+    <button class="back-button" onclick="loadPage('suspectlineup.html')">🧍 Suspect Lineup</button>
+    <button class="back-button" onclick="loadPage('hallway.html')">← Back to Hallway</button>
+  </div>
+  </div>
+        <!-- Fullscreen Warning -->
+    <div id="fullscreen-warning" class="fullscreen-warning">
+        For the best experience, press <strong>F11</strong> to enter fullscreen mode.
+    </div>
+
+    <div class="container">
+        <!-- First Card -->
+        <div class="handwriting-card" data-id="image1">
+        <div class="toolbar">
+            <button class="tool-btn" data-tool="draw">Draw</button>
+            <button class="tool-btn" data-tool="erase">Eraser</button>
+            <button class="tool-btn" data-tool="clear">Clear All</button>
+        </div>
+        <div class="image-wrapper">
+            <img src="images/ClassAssignment.png" alt="Marcus's Class Assignment">
+            <canvas></canvas>
+        </div>
+        <h3>Marcus's Class Assignment</h3>
+        </div>
+
+       <!-- Second Card with Notes -->
+<div style="display: flex; flex-wrap: wrap; gap: 20px; max-width: 900px;">
+  <div class="handwriting-card" data-id="image2">
+    <div class="toolbar">
+      <button class="tool-btn" data-tool="draw">Draw</button>
+      <button class="tool-btn" data-tool="erase">Eraser</button>
+      <button class="tool-btn" data-tool="clear">Clear All</button>
+    </div>
+    <div class="image-wrapper">
+      <img src="images/Notebook.png" alt="Password Violations Log">
+      <canvas></canvas>
+    </div>
+    <h3>Password Violations Log</h3>
+  </div>
+
+    </div>
+    <div style="flex: 1; min-width: 260px; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #1f2937; border: 1px solid #58a6ff; border-radius: 10px;">
+    <h2 style="color:#58a6ff;">Comparison Verdict</h2>
+    
+    <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+        <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+    <button id="match-btn" class="verdict-btn">Match</button>
+    <button id="not-match-btn" class="verdict-btn">Not Match</button>
+    </div>
+
+    </div>
+    
+<textarea id="match-details" rows="27" placeholder="Explain what matches or differs (e.g. slant, loops, spacing)..."
+  style="width: 96%; border-radius: 6px; border: 1px solid #ccc; padding: 10px; resize: vertical;"></textarea>
+    </div>
+
+<script data-external="js/handwriting.js"></script>
+
+<!-- Load page properly if loaded directly -->
+  <script>
+    if (!window.loadPage) {
+      window.location.href = 'index.html?page=handwriting.html';
+    }
+  </script>
+
+    </body>
+    </html>

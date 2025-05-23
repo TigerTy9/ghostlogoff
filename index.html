@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ghost Logoff</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #0d1117;
+      color: #e6edf3;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    #main-content {
+      width: 100%;
+    }
+    #audio-controls {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 9999;
+      background: #58a6ff;
+      color: #0d1117;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Persistent Music Player -->
+ <audio id="bg-music" autoplay></audio>
+
+  <!-- Controls -->
+  <button id="audio-controls" onclick="toggleMusic()">⏸ Pause Music</button>
+
+  <!-- Dynamic Content Loader -->
+  <div id="main-content"></div>
+
+  <script>
+function loadPage(page) {
+  // Save page to sessionStorage
+  sessionStorage.setItem('lastPage', page);
+
+  // Update URL bar without reloading the page
+  const newUrl = `index.html?page=${encodeURIComponent(page)}`;
+  history.pushState({ page }, '', newUrl);
+
+  // Fetch and inject page content
+  fetch(page)
+    .then(res => {
+      if (!res.ok) throw new Error(`Failed to load ${page}`);
+      return res.text();
+    })
+    .then(html => {
+      document.getElementById('main-content').innerHTML = html;
+      checkFullscreen();
+      attachButtonSounds();
+
+      // Conditionally load JS for the page
+      if (page.includes('fingerprints.html')) {
+        const script = document.createElement('script');
+        script.src = 'js/fingerprints.js';
+
+        // Once the script loads, initialize the fingerprint on window loads
+        script.onload = () => {
+          if (typeof loadPageFingerprints === 'function') {
+            loadPageFingerprints();
+          }
+        };
+
+        document.body.appendChild(script);
+      } else if (page.includes('clothing-lineup.html')) {
+        const script = document.createElement('script');
+        script.src = 'js/clothing-lineup.js';
+
+        // Once the script loads, initialize the fingerprint on window loads
+        script.onload = () => {
+          if (typeof loadPageClothingLineup === 'function') {
+            loadPageClothingLineup();
+          }
+        };
+
+        document.body.appendChild(script);
+      } else if (page.includes('suspectlineup.html')) {
+        const script = document.createElement('script');
+        script.src = 'js/suspectlineup.js';
+
+        // Once the script loads, initialize the fingerprint on window loads
+        script.onload = () => {
+          if (typeof loadPageSuspectLineup === 'function') {
+            loadPageSuspectLineup();
+          }
+        };
+
+        document.body.appendChild(script);
+      } else if (page.includes('evidence.html')) {
+        const script = document.createElement('script');
+        script.src = 'js/evidence.js';
+
+        // Once the script loads, initialize the fingerprint on window loads
+        script.onload = () => {
+          if (typeof loadPageSuspectLineup === 'function') {
+            loadPageSuspectLineup();
+          }
+        };
+
+        document.body.appendChild(script);
+      } else if (page.includes('hallway.html')) {
+        const script = document.createElement('script');
+        script.src = 'js/hallway.js';
+
+        // Once the script loads, initialize the fingerprint on window loads
+        script.onload = () => {
+          if (typeof loadPageSuspectLineup === 'function') {
+            loadPageSuspectLineup();
+          }
+        };
+
+        document.body.appendChild(script);
+      } else if (page.includes('handwriting.html')) {
+        const script = document.createElement('script');
+        script.src = 'js/handwriting.js';
+
+        // Once the script loads, initialize the fingerprint on window loads
+        script.onload = () => {
+          if (typeof loadPageHandwriting === 'function') {
+            loadPageHandwriting();
+          }
+        };
+
+        document.body.appendChild(script);
+      }
+
+      if (page.includes('suspectlineup.html')) {
+        document.documentElement.style.overflow = 'auto'; // <html>
+        document.body.style.overflow = 'auto';            // <body>
+        }
+    })
+    .catch(err => {
+      console.error(err);
+      document.getElementById('main-content').innerHTML = `<p style="color:red;">Failed to load page.</p>`;
+    });
+}
+
+
+    // Music toggle
+    const music = document.getElementById('bg-music');
+    const button = document.getElementById('audio-controls');
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+        button.textContent = '⏸ Pause Music';
+      } else {
+        music.pause();
+        button.textContent = '▶ Play Music';
+      }
+    }
+
+const playlist = [
+  { title: "Blue Screen Of Death", file: "Blue Screen Of Death - The Soundlings.mp3", volume: 0.3 },
+  { title: "Dead Wrong", file: "Dead Wrong - Jeremy Blake.mp3", volume: 0.3 },
+  { title: "Minor Lament for Solo Bass", file: "Minor Lament for Solo Bass - John Patitucci.mp3", volume: 0.7 }
+];
+
+
+let currentTrackIndex = Math.floor(Math.random() * playlist.length);
+
+function playCurrentTrack() {
+  const currentTrack = playlist[currentTrackIndex];
+  music.src = `music/${currentTrack.file}`;
+  music.volume = currentTrack.volume || 1.0;  // default to full volume if not set
+  music.play().catch(err => console.warn("Autoplay blocked:", err));
+  button.textContent = '⏸ Pause Music';
+}
+
+
+music.addEventListener('ended', () => {
+  currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+  playCurrentTrack();
+});
+
+// Start with the first track
+playCurrentTrack();
+
+    // Initial content
+  window.addEventListener('load', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const requestedPage = urlParams.get('page');
+  const lastPage = sessionStorage.getItem('lastPage');
+  const pageToLoad = requestedPage || lastPage || 'overview.html';
+
+    console.log(pageToLoad);
+    if (pageToLoad.includes('suspectlineup.html')) {
+  document.documentElement.style.overflow = 'auto'; // <html>
+  document.body.style.overflow = 'auto';            // <body>
+        }
+  loadPage(pageToLoad);
+});
+
+    // Optional: expose globally to use in HTML buttons
+    window.loadPage = loadPage;
+  </script>
+
+   <!-- Fullscreen Check Script -->
+<script>
+  let wasFullscreen = window.innerHeight === screen.height;
+
+  function checkFullscreen() {
+    const warning = document.getElementById('fullscreen-warning');
+    
+    // If warning element is not on the page, skip the fullscreen logic
+    if (!warning) return;
+
+    const isFullscreen = window.innerHeight === screen.height;
+
+    // Show or hide fullscreen warning
+    warning.style.display = isFullscreen ? 'none' : 'block';
+
+    // Enable or disable scroll
+    document.body.style.overflow = isFullscreen ? 'hidden' : 'auto';
+
+    // If user just entered fullscreen, scroll to top
+    if (isFullscreen && !wasFullscreen) {
+      window.scrollTo(0, 0);
+    }
+
+    wasFullscreen = isFullscreen;
+    
+  }
+
+  window.addEventListener('load', checkFullscreen);
+  window.addEventListener('resize', checkFullscreen);
+</script>
+
+<audio id="sfx-click" src="sfx/click6.mp3" preload="auto"></audio>
+<audio id="sfx-hover" src="sfx/hover.mp3" preload="auto"></audio>
+
+<script>
+  const clickSound = document.getElementById('sfx-click');
+  const hoverSound = document.getElementById('sfx-hover');
+
+  function playClickSound() {
+    clickSound.currentTime = 0;
+    clickSound.play().catch(() => {}); // Avoid autoplay errors
+  }
+
+  function playHoverSound() {
+   // hoverSound.currentTime = 0;
+   // hoverSound.play().catch(() => {}); // Avoid autoplay errors
+  }
+
+  // Attach sounds to all buttons
+ function attachButtonSounds() {
+  document.addEventListener('click', (e) => {
+    // Only play sound if a real <button> was clicked
+    const target = e.target;
+    if (target.tagName === 'BUTTON') {
+      clickSound.currentTime = 0;
+      clickSound.play().catch(() => {});
+    }
+  });
+
+  const buttons = document.querySelectorAll('button');
+  buttons.forEach(button => {
+    button.addEventListener('mouseenter', playHoverSound);
+  });
+}
+
+
+  // Run again after each dynamic page load
+  window.attachButtonSounds = attachButtonSounds;
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+</body>
+</html>

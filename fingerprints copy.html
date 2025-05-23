@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fingerprint Evidence - Ghost Logoff</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d1117;
+      color: #e6edf3;
+      margin: 0;
+      padding: 0;
+    }
+
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #1f2937;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      color: #58a6ff;
+      font-size: 20px;
+      z-index: 1000;
+      border-bottom: 2px solid #58a6ff;
+    }
+
+    .fullscreen-warning {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background-color: #ffcc00;
+      color: #000;
+      text-align: center;
+      padding: 10px;
+      font-size: 16px;
+      z-index: 999;
+      display: none;
+    }
+
+    .container {
+      margin-top: 80px;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .container-suspects {
+      margin-top: -20px;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .print-card {
+      background-color: #1f2937;
+      border: 1px solid #ff5858;
+      border-radius: 10px;
+      padding: 16px;
+      width: 200px;
+      text-align: center;
+    }
+
+     .print-card-suspect {
+      background-color: #1f2937;
+      border: 1px solid #58a6ff;
+      border-radius: 10px;
+      padding: 16px;
+      width: 180px;
+      text-align: center;
+    }
+
+    .print-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      border: 1px solid #333;
+    }
+    
+    .print-card-suspect img {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      border: 1px solid #333;
+    }
+
+    
+    .print-card h3 {
+      font-size: 16px;
+      color: #ff5858;
+      margin-top: 12px;
+    }
+
+    .print-card-suspect h3 {
+      font-size: 16px;
+      color: #58a6ff;
+      margin-top: 12px;
+    }
+
+   .back-button {
+        display: block;
+        margin: 20px 40px 20px auto; /* top, right (space from edge), bottom, auto (push right) */
+        background-color: #58a6ff;
+        color: #0d1117;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        width: fit-content;
+    }
+
+
+    .back-button:hover {
+      background-color: #1f75ff;
+    }
+       
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal img {
+        max-width: 90%;
+        max-height: 90%;
+        border: 3px solid #58a6ff;
+        border-radius: 12px;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 20px;
+        right: 40px;
+        font-size: 30px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .modal-caption {
+        color: #e6edf3;
+        font-size: 18px;
+        margin-top: 12px;
+        text-align: center;
+    }
+
+  </style>
+</head>
+<div id="imageModal" class="modal" onclick="closeModal()">
+  <span class="modal-close">&times;</span>
+  <div style="text-align: center;">
+    <img id="modalImage" src="" alt="Enlarged Fingerprint" />
+    <div id="modalCaption" class="modal-caption"></div>
+  </div>
+</div>
+
+<body>
+
+  <div class="top-bar">Fingerprint Comparison - Ghost Logoff
+      <a href="evidence.html" class="back-button">← Back to Crime Scene</a>
+  </div>
+
+    <!-- Fullscreen Warning -->
+  <div id="fullscreen-warning" class="fullscreen-warning">
+    For the best experience, press <strong>F11</strong> to enter fullscreen mode.
+  </div>
+
+
+   <div class="container">
+    <div class="print-card">
+      <img src="prints/unknown_fingerprint.png" alt="Unknown Fingerprint">
+      <h3>Unknown Partial Print</h3>
+    </div>
+  </div>
+
+  <div class="container-suspects">
+    <div class="print-card-suspect">
+      <img src="prints/marcus_fingerprint.png" alt="Marcus's Fingerprint">
+      <h3>Marcus Ellery (Victim)</h3>
+    </div>
+    <div class="print-card-suspect">
+      <img src="prints/suspect1_fingerprint.png" alt="Suspect 1 Fingerprint">
+      <h3>Suspect 1: Eli Navarro </h3>
+    </div>
+    <div class="print-card-suspect">
+      <img src="prints/suspect2_fingerprint.png" alt="Suspect 2 Fingerprint">
+      <h3>Suspect 2: Mrs. Monroe (Tess's mother)</h3>
+    </div>
+    <div class="print-card-suspect">
+      <img src="prints/suspect3_fingerprint.png" alt="Suspect 3 Fingerprint">
+      <h3>Suspect 3: Mr. Weller</h3>
+    </div>
+    <div class="print-card-suspect">
+      <img src="prints/suspect4_fingerprint.png" alt="Suspect 4 Fingerprint">
+      <h3>Suspect 4: Tess Monroe</h3>
+    </div>
+  </div>
+
+<script>
+  // Enable modal on click
+  document.querySelectorAll('.print-card, .print-card-suspect').forEach(card => {
+    card.addEventListener('click', () => {
+      const img = card.querySelector('img');
+      const captionText = card.querySelector('h3')?.innerText || '';
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImage');
+      const modalCaption = document.getElementById('modalCaption');
+
+      modalImg.src = img.src;
+      modalCaption.innerText = captionText;
+      modal.style.display = 'flex';
+    });
+  });
+
+  function closeModal() {
+    document.getElementById('imageModal').style.display = 'none';
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+<!-- Fullscreen Check Script -->
+ <script>
+  let wasFullscreen = window.innerHeight === screen.height;
+
+  function checkFullscreen() {
+    const isFullscreen = window.innerHeight === screen.height;
+    const warning = document.getElementById('fullscreen-warning');
+
+    // Show or hide fullscreen warning
+    warning.style.display = isFullscreen ? 'none' : 'block';
+
+    // Enable or disable scroll
+    document.body.style.overflow = isFullscreen ? 'hidden' : 'auto';
+
+    // If user just entered fullscreen, scroll to top
+    if (isFullscreen && !wasFullscreen) {
+      window.scrollTo(0, 0);
+    }
+
+    wasFullscreen = isFullscreen;
+  }
+
+  window.addEventListener('load', checkFullscreen);
+  window.addEventListener('resize', checkFullscreen);
+</script>
+</body>
+</html>

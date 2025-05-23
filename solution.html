@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ghost Logoff – Case Solution</title>
+  <style>
+    body {
+      background-color: #0d1117;
+      color: #e6edf3;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px 40px; /* Previously 40px 20px */      
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    h1, h2 {
+      color: #58a6ff;
+      text-align: center;
+    }
+
+    .solution-box {
+      background: #161b22;
+      border: 2px solid #58a6ff;
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 720px;
+      margin-top: 30px;
+      text-align: left;
+      line-height: 1.6;
+      box-shadow: 0 0 20px #58a6ff33;
+    }
+
+    #reveal-box {
+      min-height: 120px;
+      font-size: 18px;
+      border: 2px solid #30363d;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 25px;
+      background-color: #0d1117;
+      box-shadow: inset 0 0 6px #000;
+      width: 100%;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #error-msg {
+      color: #ff6b6b;
+      margin-bottom: 20px;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      height: 1em;
+      background-color: #e6edf3;
+      margin-left: 5px;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50%, 100% { opacity: 1; }
+      25%, 75% { opacity: 0; }
+    }
+    #matrix-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: #0d1117;
+}
+
+     .top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #1f2937;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  color: #58a6ff;
+  font-size: 20px;
+  z-index: 1000;
+  border-bottom: 2px solid #58a6ff;
+}
+
+.top-bar .title {
+  font-weight: bold;
+}
+
+.top-bar .nav-links {
+  display: flex;
+  gap: 12px;
+    padding-right: 40px; /* Increased from 20px to 40px */
+
+}
+
+.back-button {
+  background-color: #58a6ff;
+  color: #0d1117;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  background-color: #1f75ff;
+}
+
+#page-title {
+  margin-top: 80px; /* Adjust as needed to sit just below the top bar */
+}
+
+  </style>
+</head>
+<body>
+
+     <!-- Top Bar -->
+  <div class="top-bar">
+  <div class="title">GHOST LOGOFF - (Lab) Interactive Crime Scene</div>
+  <div class="nav-links">
+     <button class="back-button" onclick="loadPage('suspectlineup.html')">🧍 Suspect Lineup</button>
+  </div>
+</div>
+
+<canvas id="matrix-bg"></canvas>
+
+  <h1 id="page-title">🔐 Solution Locked</h1>
+  <div id="error-msg" class="hidden">Incorrect or unauthorized access.</div>
+
+  <div id="reveal-box" class="solution-box">
+    <span id="typewriter"></span><span class="cursor"></span>
+  </div>
+
+  <div id="full-summary" class="solution-box hidden">
+    <h2>✅ Full Summary</h2>
+      <p>
+      <strong>Conclusion:</strong><br><br>
+      Tess Monroe was responsible for Marcus Ellery’s death — but it wasn’t a premeditated act of violence.<br><br>
+
+      Marcus had developed a password audit tool as part of the school cybersecurity competition. It worked too well. Among the compromised accounts it flagged was one tied to Tess’s mother — a district administrator. Marcus had discovered that Tess had been using the admin login to access restricted systems, including the school grading platform.<br><br>
+
+      Fearing exposure, academic expulsion, and the loss of her scholarship, Tess panicked. On the evening of April 24th, swipe logs show her ID was used to unlock Lab 2 at <strong>6:30 PM</strong>. Marcus was already inside.<br><br>
+
+      She claimed later that her ID had been stolen — but the timeline didn’t match. Surveillance footage from that window was corrupted, and a set of server tools had gone missing. When police pressed her on the inconsistency, she admitted to being in the lab that evening, but insisted it had been an accident.<br><br>
+
+      Investigators believe she attempted to delete files from Marcus’s laptop. During the confrontation, Marcus tried to stop her, tripped over a power cable, and struck his head on the sharp corner of a desk. He died almost instantly. In shock, Tess wiped the laptop, accessed the server logs and security systems using her mother’s credentials, and deleted the footage before fleeing the scene.<br><br>
+
+      <strong>Supporting Evidence:</strong><br>
+      • Polyester hoodie fibers matching Tess’s confirmed clothing were found at the scene.<br>
+      • Digital logs show her mother’s admin account was used to access the security system in the server room and Deans office after 7 PM<br>
+      • A partial fingerprint found on the laptop trackpad does not belong to Marcus or the other suspects — it belongs to Tess<br>
+
+      <br>
+      <strong>Why the others didn’t do it:</strong><br>
+      • Eli’s credentials were used, but he was in the Lab before Marcus died — and his cotton-blend hoodie didn’t match the fiber evidence. A witness also saw him leaving at 6:15 p.m.<br>
+      • Mr. Weller’s fingerprints were not found at the scene, and he was confirmed attending a faculty event.<br>
+      • Mrs. Monroe’s credentials were used without her knowledge, and she was elsewhere at the time of the incident.<br><br>
+
+      Tess didn’t intend to kill Marcus. But fear, panic, and a desperate attempt to cover her tracks led to a tragic accident — and a meticulous digital cover-up. In the end, the clues she tried to erase became the very ones that exposed her.
+    </p>
+
+  </div>
+
+  <!-- Audio -->
+  <audio id="type-sound" src="mixkit-single-key-type-2533-[AudioTrimmer.com].wav" preload="auto"></audio>
+  <audio id="ambient" src="Missing Persons - Jeremy Blake.mp3" preload="auto" loop></audio>
+
+  <script>
+    const correctPassword = "teacher2025";
+    const sentences = [
+      "It wasn’t supposed to happen this way.",
+      "Tess Monroe went to the lab that evening with one goal: erase the digital footprints that could destroy her future.",
+      "Marcus had discovered her secret — that she’d been using her mom’s district login to access the school’s grading system.",
+      "She panicked. A single exposure could mean expulsion, lost scholarships, everything gone.",
+      "So she confronted him.",
+      "But Marcus wouldn’t back down. He threatened to report her the next morning.",
+      "In desperation, Tess lunged for his laptop — not to hurt him, just to wipe the evidence.",
+      "Marcus grabbed her arm, trying to stop her... and tripped.",
+      "He fell hard, striking his head on the sharp edge of a desk. The room fell silent.",
+      "Tess stood frozen, staring at what she’d done — not with malice, but panic.",
+      "She wiped the laptop, deleted security footage using her mother’s admin credentials, and fled the scene.",
+      "Swipe logs confirm her ID unlocked the lab at 6:30 PM — just minutes before the estimated time of death.",
+      "She didn’t plan to kill him. But the evidence — the digital trail, the fibers, the deleted files — tells another story.",
+      "And sometimes, intent doesn’t matter as much as consequence."
+    ];
+
+  const typewriterEl = document.getElementById("typewriter");
+  const revealBox = document.getElementById("reveal-box");
+  const summary = document.getElementById("full-summary");
+  const typeSound = document.getElementById("type-sound");
+  const ambient = document.getElementById("ambient");
+
+  let index = 0;
+  let isTyping = false;
+  let charIndex = 0;
+  let skipTyping = false;
+  let currentSentence = "";
+
+  function typeChar(callback) {
+    if (charIndex < currentSentence.length) {
+      typewriterEl.textContent += currentSentence.charAt(charIndex);
+      if (currentSentence[charIndex] !== " ") typeSound.play();
+      charIndex++;
+      setTimeout(() => {
+        if (!skipTyping) {
+          typeChar(callback);
+        } else {
+          typewriterEl.textContent = currentSentence;
+          isTyping = false;
+          skipTyping = false;
+          setTimeout(callback, 1000);
+        }
+      }, 40);
+    } else {
+      isTyping = false;
+      setTimeout(callback, 1000);
+    }
+  }
+
+  function typeSentence(sentence, callback) {
+    currentSentence = sentence;
+    charIndex = 0;
+    isTyping = true;
+    typewriterEl.textContent = "";
+    typeChar(callback);
+  }
+
+  function runTypewriter() {
+    ambient.volume = 0.2;
+    ambient.play();
+
+    function next() {
+      if (index < sentences.length) {
+        typeSentence(sentences[index], () => {
+          index++;
+          next();
+        });
+      } else {
+        revealBox.style.display = "none";
+        summary.classList.remove("hidden");
+      }
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        if (isTyping) {
+          skipTyping = true;
+        } else {
+          if (index < sentences.length) {
+            typeSentence(sentences[index], () => {
+              index++;
+              runTypewriter(); // resume full loop from current index
+            });
+          } else {
+            revealBox.style.display = "none";
+            summary.classList.remove("hidden");
+          }
+        }
+      }
+    });
+
+    next();
+  }
+
+  function unlockSolution() {
+    const input = prompt("Enter teacher password to unlock the solution:");
+    if (input === correctPassword) {
+      localStorage.setItem("ghostlogoff_unlocked_solution", "true");
+      location.reload();
+    } else {
+      document.getElementById("error-msg").classList.remove("hidden");
+    }
+  }
+
+  const allowed = localStorage.getItem("ghostlogoff_unlocked_solution");
+
+  if (allowed === "true") {
+    document.getElementById("page-title").textContent = "🕵️ Case Solution Revealed";
+    runTypewriter();
+  } else {
+    unlockSolution();
+  }
+
+  window.addEventListener("beforeunload", () => {
+    localStorage.removeItem("ghostlogoff_unlocked_solution");
+  });
+</script>
+
+  <script>
+  const canvas = document.getElementById('matrix-bg');
+  const ctx = canvas.getContext('2d');
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const letters = "アァイィウヴエカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  const fontSize = 14;
+  const columns = canvas.width / fontSize;
+
+  const drops = Array(Math.floor(columns)).fill(1);
+
+  function drawMatrix() {
+    ctx.fillStyle = "rgba(13, 17, 23, 0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#58a6ff";
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+      const text = letters.charAt(Math.floor(Math.random() * letters.length));
+      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+
+      drops[i]++;
+    }
+  }
+
+  setInterval(drawMatrix, 50);
+
+  // Resize canvas when window size changes
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+</script>
+
+</body>
+</html>
