@@ -25,7 +25,7 @@ A high school senior is found dead in the tech lab. The crime scene raises more 
     Exportable PDF summary of user’s investigation
 
 🌐 Try It Live
-👉 Explore the case here: ghostlogoff.tythomasson.com
+👉 Explore the case here: https://ghostlogoff.tythomasson.com
 
 Test your skills. Solve the mystery. Then unlock the truth.
 🛠 Built With
