@@ -289,15 +289,21 @@
   }
 
   async function unlockSolution() {
-    const input = prompt("Enter teacher password to unlock the solution:");
-    const hashedInput = await hashPassword(input);
-    if (hashedInput === correctHash) {
-      localStorage.setItem("ghostlogoff_unlocked_solution", "true");
-      location.reload();
-    } else {
-      document.getElementById("error-msg").classList.remove("hidden");
-    }
+  const input = prompt("Enter teacher password to unlock the solution:");
+  if (!input) return;
+  const hashedInput = await hashPassword(input.trim());
+  if (hashedInput === correctHash) {
+    localStorage.setItem("ghostlogoff_unlocked_solution", "true");
+    console.log("Input:", input);
+console.log("Hashed input:", hashedInput);
+console.log("Expected:", correctHash);
+
+    location.reload();
+  } else {
+    document.getElementById("error-msg").classList.remove("hidden");
   }
+}
+
 
   const allowed = localStorage.getItem("ghostlogoff_unlocked_solution");
 
