@@ -146,15 +146,36 @@ function loadPage(page) {
 }
 
 
-    // Music toggle
-    const music = document.getElementById('bg-music');
-    const button = document.getElementById('audio-controls');
-   let musicStarted = false;
+   const music = document.getElementById('bg-music');
+const button = document.getElementById('audio-controls');
+let musicStarted = false;
+let currentTrackIndex = Math.floor(Math.random() * playlist.length);
 
+// Load track into the audio element
+function prepareCurrentTrack() {
+  const currentTrack = playlist[currentTrackIndex];
+  music.src = `music/${currentTrack.file}`;
+  music.volume = currentTrack.volume || 1.0;
+}
+
+// Start music after a short delay (once user interacts)
+function startMusicWithDelay() {
+  if (musicStarted) return;
+
+  musicStarted = true;
+  prepareCurrentTrack();
+
+  setTimeout(() => {
+    music.play().then(() => {
+      button.textContent = '⏸ Pause Music';
+    }).catch(err => console.warn("Playback blocked:", err));
+  }, 3000); // 3 second delay
+}
+
+// Toggle manually from button
 function toggleMusic() {
   if (!musicStarted) {
-    playCurrentTrack(); // start music only after user interaction
-    musicStarted = true;
+    startMusicWithDelay();
   } else if (music.paused) {
     music.play().catch(err => console.warn("Play failed:", err));
     button.textContent = '⏸ Pause Music';
@@ -164,6 +185,7 @@ function toggleMusic() {
   }
 }
 
+
 const playlist = [
   { title: "Blue Screen Of Death", file: "Blue Screen Of Death - The Soundlings.mp3", volume: 0.3 },
   { title: "Dead Wrong", file: "Dead Wrong - Jeremy Blake.mp3", volume: 0.3 },
@@ -171,21 +193,26 @@ const playlist = [
 ];
 
 
-let currentTrackIndex = Math.floor(Math.random() * playlist.length);
-
-function playCurrentTrack() {
-  const currentTrack = playlist[currentTrackIndex];
-  music.src = `music/${currentTrack.file}`;
-  music.volume = currentTrack.volume || 1.0;  // default to full volume if not set
-  music.play().catch(err => console.warn("Autoplay blocked:", err));
-  button.textContent = '⏸ Pause Music';
-}
+// function playCurrentTrack() {
+//   const currentTrack = playlist[currentTrackIndex];
+//   music.src = `music/${currentTrack.file}`;
+//   music.volume = currentTrack.volume || 1.0;  // default to full volume if not set
+//   music.play().catch(err => console.warn("Autoplay blocked:", err));
+//   button.textContent = '⏸ Pause Music';
+// }
 
 
+// Play next track when current ends
 music.addEventListener('ended', () => {
   currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-  playCurrentTrack();
+  prepareCurrentTrack();
+  music.play().catch(err => console.warn("Autoplay blocked on next track:", err));
 });
+
+// Start music on first interaction
+window.addEventListener('click', startMusicWithDelay, { once: true });
+
+
 
 // Start with the first track
 //playCurrentTrack();
