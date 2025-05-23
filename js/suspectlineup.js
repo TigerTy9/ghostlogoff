@@ -106,6 +106,8 @@ async function hashPassword(password) {
     targetBox.querySelector('textarea').focus();
   }
 
+  const correctHash = "77fc73f9d95e54b7626b66e50c1871ff947a6b40eb3c3cf6df1b9548d382bea0"; // "teacher2025"
+
  async function promptPassword() {
   const input = prompt("Enter teacher password to view the solution:");
   if (!input) return;
