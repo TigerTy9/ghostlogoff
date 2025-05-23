@@ -243,21 +243,31 @@
     typeChar(callback);
   }
 
-  function runTypewriter() {
+ function runTypewriter() {
+  // Wait for user interaction before playing audio
+  const startTyping = () => {
     ambient.volume = 0.2;
-    ambient.play();
+    ambient.play().catch(() => {}); // Avoids console errors if blocked
+    document.removeEventListener("click", startTyping);
+    document.removeEventListener("keydown", startTyping);
+    next();
+  };
 
-    function next() {
-      if (index < sentences.length) {
-        typeSentence(sentences[index], () => {
-          index++;
-          next();
-        });
-      } else {
-        revealBox.style.display = "none";
-        summary.classList.remove("hidden");
-      }
+  function next() {
+    if (index < sentences.length) {
+      typeSentence(sentences[index], () => {
+        index++;
+        next();
+      });
+    } else {
+      revealBox.style.display = "none";
+      summary.classList.remove("hidden");
     }
+  }
+
+  // Attach one-time listener to begin typing
+  document.addEventListener("click", startTyping);
+  document.addEventListener("keydown", startTyping);
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
