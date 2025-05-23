@@ -175,7 +175,7 @@ function startMusicWithDelay() {
     music.play().then(() => {
       button.textContent = '⏸ Pause Music';
     }).catch(err => console.warn("Playback blocked:", err));
-  }, 3000); // 3 second delay
+  }, 100); // 0.1 second delay
 }
 
 // Toggle manually from button
