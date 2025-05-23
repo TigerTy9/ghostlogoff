@@ -31,7 +31,7 @@
 <body>
 
   <!-- Persistent Music Player -->
- <audio id="bg-music" autoplay></audio>
+ <audio id="bg-music"></audio>
 
   <!-- Controls -->
   <button id="audio-controls" onclick="toggleMusic()">⏸ Pause Music</button>
@@ -149,15 +149,20 @@ function loadPage(page) {
     // Music toggle
     const music = document.getElementById('bg-music');
     const button = document.getElementById('audio-controls');
-    function toggleMusic() {
-      if (music.paused) {
-        music.play();
-        button.textContent = '⏸ Pause Music';
-      } else {
-        music.pause();
-        button.textContent = '▶ Play Music';
-      }
-    }
+   let musicStarted = false;
+
+function toggleMusic() {
+  if (!musicStarted) {
+    playCurrentTrack(); // start music only after user interaction
+    musicStarted = true;
+  } else if (music.paused) {
+    music.play().catch(err => console.warn("Play failed:", err));
+    button.textContent = '⏸ Pause Music';
+  } else {
+    music.pause();
+    button.textContent = '▶ Play Music';
+  }
+}
 
 const playlist = [
   { title: "Blue Screen Of Death", file: "Blue Screen Of Death - The Soundlings.mp3", volume: 0.3 },
